@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>Upload Result</title>
+
+    <style>
+
+        body{
+            font-family: Arial;
+            background:#f4f4f4;
+            padding:40px;
+        }
+
+        .page{
+            display:flex;
+            justify-content:center;
+            align-items:flex-start;
+            gap:20px;
+        }
+
+        .container{
+            width:700px;
+            background:white;
+            padding:30px;
+            border-radius:10px;
+            box-shadow:0px 0px 10px gray;
+        }
+
+        .details{
+    width:180px;
+    margin-top:420px;
+    margin-left:20px;
+}
+
+        h1{
+            color:green;
+        }
+
+        .hash-box{
+            background:#eee;
+            padding:15px;
+            word-wrap:break-word;
+            border-radius:5px;
+        }
+
+        #txStatus{
+            color:green;
+            font-weight:bold;
+            margin-top:10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="page">
+
+    <div class="container">
+
+        <h1>Paper Uploaded Successfully</h1>
+
+        <h3>Uploaded File:</h3>
+
+        <p>{{ filename }}</p>
+
+        <h3>Secure Digital Identity</h3>
+
+        <h3>Similarity Percentage</h3>
+
+        <p>
+
+       {% if plagiarism < 20 %}
+    Low document similarity detected.
+
+{% elif plagiarism < 50 %}
+    Moderate document similarity detected.
+
+{% else %}
+    High document similarity detected.
+{% endif %}
+
+        </p>
+
+        <p>
+            A unique secure identity has been created for your research paper.
+        </p>
+
+        <p>
+            {{ plagiarism }} %
+        </p>
+
+        <div class="hash-box">
+            {{ paper_hash }}
+        </div>
+
+        <p>
+            This fingerprint will later be stored on blockchain for ownership verification.
+        </p>
+
+        <div style="
+            background:#d4edda;
+            color:#155724;
+            padding:15px;
+            border-radius:5px;
+            margin-top:20px;
+            font-weight:bold;
+        ">
+
+        ✅ Blockchain Verification Enabled
+
+        </div>
+
+        <hr>
+<button id="connectWallet">
+    Connect MetaMask
+</button>
+
+<button id="registerBlockchain">
+    Register Research Paper
+</button>
+
+        <p id="walletAddress"></p>
+
+        <p id="txStatus"></p>
+
+        <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+
+        <script>
+            const PAPER_HASH="{{ paper_hash }}";
+        </script>
+
+        <script src="{{ url_for('static', filename='js/blockchain.js') }}"></script>
+
+    </div>
+
+    <div class="details">
+
+        <h3>Similarity Status</h3>
+
+        {% if plagiarism < 20 %}
+
+<p style="color:green;font-weight:bold;">
+    Low Similarity
+</p>
+
+{% elif plagiarism < 50 %}
+
+<p style="color:orange;font-weight:bold;">
+    Moderate Similarity
+</p>
+
+{% else %}
+
+<p style="color:red;font-weight:bold;">
+    High Similarity
+</p>
+
+{% endif %}
+
+        
+
+        <br>
+
+        <h3>Upload Time</h3>
+
+        <p>{{ upload_time }}</p>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>
